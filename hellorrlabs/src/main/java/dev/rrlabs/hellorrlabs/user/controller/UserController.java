@@ -1,5 +1,6 @@
 package dev.rrlabs.hellorrlabs.user.controller;
 
+import dev.rrlabs.hellorrlabs.config.exception.NotFoundException;
 import dev.rrlabs.hellorrlabs.user.api.UserApi;
 import dev.rrlabs.hellorrlabs.user.api.mapper.UserMapper;
 import dev.rrlabs.hellorrlabs.user.api.resource.UserResource;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
