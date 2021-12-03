@@ -34,10 +34,9 @@ public interface UserApi {
             @ApiResponse(responseCode = "500", description = "Ocorreu um erro ao consultar o usuario")
     })
     @GetMapping("/{email}")
-    ResponseEntity<UserResource> findById(@PathVariable("email") String email);
+    ResponseEntity<UserResource> findByEmail(@PathVariable("email") String email);
 
     @Operation(summary = "Consulta de usuario", description = "Consulta de usuario de acordo com os filtros aplicados")
-    @Parameter(in = ParameterIn.QUERY, description = "Filtro", content = @Content(schema = @Schema(implementation = UserResource.class)))
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuario encontrado com sucesso", content = @Content(schema = @Schema(implementation = UserResource.class))),
             @ApiResponse(responseCode = "500", description = "Ocorreu um erro ao consultar o usuario")
@@ -46,7 +45,6 @@ public interface UserApi {
     ResponseEntity<List<UserResource>> find(UserResource filter);
 
     @Operation(summary = "Atualizacao de usuario", description = "API resposanvel por atualizar as informacoes de um usuario")
-    @Parameter(description = "Dados a serem atualizados", content = @Content(schema = @Schema(implementation = UserResource.class)))
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuario atualizado com sucesso", content = @Content),
             @ApiResponse(responseCode = "500", description = "Ocorreu um erro ao atualizar o usuario")
@@ -55,7 +53,6 @@ public interface UserApi {
     ResponseEntity<Void> update(@RequestBody UserResource resource);
 
     @Operation(summary = "Remocao de usuario", description = "API remover um determinado usuario")
-    @Parameter(in = ParameterIn.PATH, description = "Email")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuario removido com sucesso", content = @Content),
             @ApiResponse(responseCode = "500", description = "Ocorreu um erro ao remover o usuario")

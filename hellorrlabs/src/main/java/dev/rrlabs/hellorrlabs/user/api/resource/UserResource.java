@@ -22,7 +22,7 @@ public class UserResource {
     @Schema(description = "Email do usuario, este campo deve ser unico")
     private String email;
 
-    @Size(max = 8, min = 3, message = "O campo nome deve conter entre 3 e 8 caracteres")
+    @Size(max = 100, min = 3, message = "O campo nome deve conter entre 3 e 100 caracteres")
     @NotEmpty(message = "O campo nome nao pode ser vazio")
     @NotNull(message = "O campo nome nao pode ser branco")
     @Schema(description = "Nome do usuario, este campo deve ser preenchido")
@@ -31,14 +31,6 @@ public class UserResource {
     @Schema(description = "Sobrenome do usuario, este campo é opcional")
     @JsonProperty("phone_number")
     private String phoneNumber;
-
-    @Min(message = "Valor minimo deve ser 5", value = 5)
-    @Max(message = "Valor maximo deve ser 10", value = 10)
-    private Integer number;
-
-    @DecimalMin(value = "0.15", message = "Valor minimo deve ser 0.15")
-    @DecimalMax(value = "1.15", message = "Valor maximo deve ser 1.15")
-    private BigDecimal amount;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthdate;
