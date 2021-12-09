@@ -1,5 +1,6 @@
 package dev.rrlabs.hellorrlabs.user.domain.document;
 
+import dev.rrlabs.hellorrlabs.user.api.resource.UserResource;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -21,4 +23,6 @@ public class User {
     private String name;
     private String phoneNumber;
     private LocalDate birthdate;
+
+    private Map<String, UserResource> map;
 }

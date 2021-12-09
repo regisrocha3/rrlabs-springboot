@@ -1,12 +1,16 @@
 package dev.rrlabs.hellorrlabs.user.domain.service;
 
+import dev.rrlabs.hellorrlabs.user.api.mapper.UserMapper;
+import dev.rrlabs.hellorrlabs.user.api.resource.UserResource;
 import dev.rrlabs.hellorrlabs.user.domain.document.User;
 import dev.rrlabs.hellorrlabs.user.domain.repository.UserCustomRepository;
 import dev.rrlabs.hellorrlabs.user.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserService {
@@ -15,6 +19,12 @@ public class UserService {
     @Autowired private UserCustomRepository userCustomRepository;
 
     public void save(User user) {
+
+        // TODO: Test
+        Map<String, UserResource> map = new HashMap<>();
+        map.put(user.getPhoneNumber(), UserMapper.INSTANCE.parse(user));
+        user.setMap(map);
+
         this.userRepository.save(user);
     }
 
