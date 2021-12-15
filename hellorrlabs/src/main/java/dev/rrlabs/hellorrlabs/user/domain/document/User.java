@@ -2,6 +2,7 @@ package dev.rrlabs.hellorrlabs.user.domain.document;
 
 import dev.rrlabs.hellorrlabs.user.api.resource.UserResource;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 import java.util.Map;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "user")

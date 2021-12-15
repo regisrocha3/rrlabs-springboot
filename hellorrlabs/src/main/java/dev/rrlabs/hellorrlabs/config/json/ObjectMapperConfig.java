@@ -30,12 +30,11 @@ public class ObjectMapperConfig {
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper()
-                .configure(MapperFeature.USE_ANNOTATIONS, false)
+                .configure(MapperFeature.USE_ANNOTATIONS, true)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .configure(MapperFeature.SORT_PROPERTIES_ALPHABETICALLY, true)
                 .configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
                 .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
-                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
                 .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 .registerModule(
                         (new JavaTimeModule())

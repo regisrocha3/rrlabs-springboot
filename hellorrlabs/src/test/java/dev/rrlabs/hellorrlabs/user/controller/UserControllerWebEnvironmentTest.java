@@ -11,7 +11,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,32 +25,30 @@ import java.util.List;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@AutoConfigureMockMvc
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class UserControllerTest {
+public class UserControllerWebEnvironmentTest {
 
-    @Autowired private MockMvc mockMvc;
     @Autowired private UserRepository userRepository;
+    @Autowired private TestRestTemplate testRestTemplate;
 
     @Test
     @SneakyThrows
     public void createTest() {
         UserResource regis = UserResource.builder().birthdate(LocalDate.of(2000, Month.JUNE, 3))
-                .name("Regis").email("regis@gmail.com").phoneNumber("23423423")
-                .build();
+                .name("Regis").email("regis@gmail.com").phoneNumber("23423423").build();
 
         String json = new ObjectMapperConfig().objectMapper().writeValueAsString(regis);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.post("/user")
-                .contentType(MediaType.APPLICATION_JSON_VALUE).content(json)).andExpect(status().isCreated());
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("content-type", MediaType.APPLICATION_JSON_VALUE);
+        HttpEntity<String> entity = new HttpEntity<>(json, headers);
+
+        ResponseEntity<Void> objectResponseEntity = this.testRestTemplate.postForEntity("/user", entity, Void.class);
+        Assertions.assertEquals(201, objectResponseEntity.getStatusCode().value());
 
         List<User> all = this.userRepository.findAll();
-
         Assertions.assertEquals(1, all.size());
-        System.out.println(all.get(0));
-
     }
 
 }
