@@ -35,8 +35,14 @@ public class UserControllerWebEnvironmentTest {
     @Test
     @SneakyThrows
     public void createTest() {
-        UserResource regis = UserResource.builder().birthdate(LocalDate.of(2000, Month.JUNE, 3))
-                .name("Regis").email("regis@gmail.com").phoneNumber("23423423").build();
+        /*UserResource regis = UserResource.builder().birthdate(LocalDate.of(2000, Month.JUNE, 3))
+                .name("Regis").email("regis@gmail.com").phoneNumber("23423423").build();*/
+
+        UserResource regis = new UserResource();
+        regis.setBirthdate(LocalDate.of(2000, Month.JUNE, 3));
+        regis.setEmail("regis@gmail.com");
+        regis.setName("Regis");
+        regis.setPhoneNumber("23423423");
 
         String json = new ObjectMapperConfig().objectMapper().writeValueAsString(regis);
 
